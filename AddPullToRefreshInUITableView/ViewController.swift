@@ -9,6 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var refreshControll = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +19,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         self.myTableView.delegate = self
         self.myTableView.dataSource = self
+        
+        self.refreshControll.attributedTitle = NSAttributedString(string: "Pull to Refresh")
+        self.refreshControll.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        
+        self.myTableView.addSubview(refreshControll)
+    }
+    
+    @objc func refresh(_ sender: UIRefreshControl) {
+        print("Table is pulling to refresh")
     }
     
     var dataStore = ["Mobile Development", "Web Design", "UI/UX", "Python"]
